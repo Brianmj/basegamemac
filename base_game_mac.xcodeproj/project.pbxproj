@@ -30,6 +30,8 @@
 		89CC908E213124E4009951F5 /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		89CC908F213124E4009951F5 /* Game.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
 		89CC909221312534009951F5 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		89CC909421312D8A009951F5 /* Actor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Actor.hpp; sourceTree = "<group>"; };
+		89CC90A82131474B009951F5 /* mathlibrary5.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mathlibrary5.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,8 @@
 				89CC90872131243B009951F5 /* main.cpp */,
 				89CC908E213124E4009951F5 /* Game.cpp */,
 				89CC908F213124E4009951F5 /* Game.hpp */,
+				89CC909421312D8A009951F5 /* Actor.hpp */,
+				89CC90A82131474B009951F5 /* mathlibrary5.hpp */,
 			);
 			path = base_game_mac;
 			sourceTree = "<group>";

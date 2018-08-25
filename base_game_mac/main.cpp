@@ -1,8 +1,10 @@
-#include "game.hpp"
-
+#include "Game.hpp"
+#include "Actor.hpp"
 int main(int argc, char *argv[]) {
     
     Game game;
+    
+
     
     bool success = game.initialize();
     
