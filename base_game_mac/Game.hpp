@@ -11,6 +11,9 @@
 
 #include <SDL2/SDL.h>
 #include <memory>
+#include "Actor.hpp"
+
+
 
 class Game {
 public:
@@ -20,16 +23,29 @@ public:
     void run_loop();
     void shutdown();
     
+    void add_actor(std::shared_ptr<Actor> actor);
+    void remove_actor(std::shared_ptr<Actor> actor);
+    
 private:
     void process_input();
     void update_game();
     void generate_output();
+    void load_data();
+    void unload_data();
     
 private:
     std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> window;
     std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> renderer;
     
+    Uint32 ticks_count;
     bool is_running;
+    bool updating_actors;
+    
+    // all the actors in the game
+    std::vector<std::shared_ptr<Actor>> actors;
+    
+    // pending actors to be inserted
+    std::vector<std::shared_ptr<Actor>> pending_actors;
     
 };
 

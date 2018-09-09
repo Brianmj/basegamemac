@@ -6,12 +6,14 @@
 //  Copyright © 2018 Brian Jones. All rights reserved.
 //
 
-#include "game.hpp"
+#include "Game.hpp"
 
 Game::Game() :
 window(nullptr, SDL_DestroyWindow),
 renderer(nullptr, SDL_DestroyRenderer),
-is_running(true)
+ticks_count(0),
+is_running(true),
+updating_actors(false)
 {
 }
 
@@ -24,14 +26,14 @@ bool Game::initialize() {
         return false;
     }
     
-    window = std::move(std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)>(
-                                                                                 SDL_CreateWindow("Game Programming in C++ (Chapter 1)",
-                                                                                                  100,
-                                                                                                  100,
-                                                                                                  1024,
-                                                                                                  768,
-                                                                                                  0),
-                                                                                 SDL_DestroyWindow));
+    window = std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)>(
+                                                                       SDL_CreateWindow("Game Programming in C++ (Chapter 1)",
+                                                                                        100,
+                                                                                        100,
+                                                                                        1024,
+                                                                                        768,
+                                                                                        0),
+                                                                       SDL_DestroyWindow);
     
     if (!window)
     {
@@ -40,10 +42,10 @@ bool Game::initialize() {
         return false;
     }
     
-    renderer = std::move(std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)>(
-                                                                                       SDL_CreateRenderer(window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC),
-                                                                                       SDL_DestroyRenderer
-                                                                                       ));
+    renderer = std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)>(
+                                                                             SDL_CreateRenderer(window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC),
+                                                                             SDL_DestroyRenderer
+                                                                             );
     
     if (!renderer)
     {
@@ -51,6 +53,8 @@ bool Game::initialize() {
         
         return false;
     }
+    
+    ticks_count = SDL_GetTicks();
     
     return true;
 }
@@ -64,8 +68,35 @@ void Game::run_loop() {
 }
 
 void Game::shutdown() {
+    unload_data();              // free the memory, unload all data here
     window.reset(nullptr);    // close the window
     SDL_Quit();                // shutdown sdl
+}
+
+void Game::add_actor(std::shared_ptr<Actor> actor){
+    if(updating_actors) {
+        pending_actors.emplace_back(actor);
+    }else {
+        actors.emplace_back(actor);
+    }
+}
+
+void Game::remove_actor(std::shared_ptr<Actor> actor){
+    // is it in pending actors
+    auto pending_iter = std::find(std::begin(pending_actors), std::end(pending_actors), actor);
+    
+    if(std::end(pending_actors) != pending_iter){
+        std::iter_swap(pending_iter, std::end(pending_actors) - 1);
+        pending_actors.pop_back();
+    }
+    
+    
+    auto iter = std::find(std::begin(actors), std::end(actors), actor);
+    
+    if(std::end(actors) != iter) {
+        std::iter_swap(iter, std::end(actors) -1);
+        actors.pop_back();
+    }
 }
 
 void Game::process_input() {
@@ -86,7 +117,30 @@ void Game::process_input() {
 }
 
 void Game::update_game() {
+    while(!SDL_TICKS_PASSED(SDL_GetTicks(), ticks_count + 16));
     
+    float delta_time = (SDL_GetTicks() - ticks_count) / 1000.0f;
+    
+    delta_time = std::min(delta_time, 0.5f);
+    
+    ticks_count = SDL_GetTicks();
+    
+    updating_actors = true;
+    for(auto &actor : actors) {
+        actor->update(delta_time);
+    }
+    updating_actors = false;
+    
+    for(auto pending_actor : pending_actors) {
+        actors.emplace_back(pending_actor);
+    }
+    
+    pending_actors.clear();
+    
+    // erase remove idiom   // get rid of the dead actors
+    actors.erase(std::remove_if(std::begin(actors), std::end(actors), [](auto &sp){
+        return sp->get_state() == Actor::State::EDead;
+    }), std::end(actors));
 }
 
 void Game::generate_output() {
@@ -95,6 +149,16 @@ void Game::generate_output() {
     
     
     SDL_RenderPresent(renderer.get());
+    
+}
+
+void Game::load_data() {
+    
+}
+
+void Game::unload_data() {
+    if(!actors.empty())
+        actors.clear();
     
 }
 

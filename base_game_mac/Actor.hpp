@@ -9,7 +9,6 @@
 #ifndef Actor_h
 #define Actor_h
 
-#include "Game.hpp"
 #include <unordered_map>
 #include <typeinfo>
 #include <typeindex>
@@ -19,8 +18,9 @@
 
 // Forward declaration
 class Component;
+class Game;
 
-class Actor {
+class Actor : public std::enable_shared_from_this<Actor> {
 public:
     
     enum class State {
@@ -41,8 +41,11 @@ public:
     // any actor specific update code (overridable)
     virtual void update_actor(float delta_time);
     
-    void add_component(Component *component);
-    void remove_component(Component *component);
+    void add_component(std::shared_ptr<Component> component);
+    void remove_component(std::shared_ptr<Component> component);
+    
+    State get_state() const { return state; }
+    void set_state(State new_state) { state = new_state; }
     
     /*
     template<typename T>
@@ -75,9 +78,8 @@ private:
     knu::math::Vec2<float>  position;       // center position of the actor
     float scale;            // uniform scale of the actor (1.0f for 100%)
     float rotation;         // rotation angle (in radians)
-    std::vector<std::unique_ptr<Component>> components; // components held by this actor
+    std::vector<std::shared_ptr<Component>> components; // components held by this actor
     Game* game;
-    
 };
 
 

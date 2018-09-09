@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		891C3EB52133521A0005AD69 /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 891C3EB42133521A0005AD69 /* Component.cpp */; };
+		891C3EB7213357910005AD69 /* Actor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 891C3EB6213357910005AD69 /* Actor.cpp */; };
 		89CC90882131243B009951F5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89CC90872131243B009951F5 /* main.cpp */; };
 		89CC9090213124E4009951F5 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89CC908E213124E4009951F5 /* Game.cpp */; };
 		89CC909321312534009951F5 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89CC909221312534009951F5 /* SDL2.framework */; };
@@ -25,6 +27,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		891C3EB321334C160005AD69 /* Component.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Component.hpp; sourceTree = "<group>"; };
+		891C3EB42133521A0005AD69 /* Component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Component.cpp; sourceTree = "<group>"; };
+		891C3EB6213357910005AD69 /* Actor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Actor.cpp; sourceTree = "<group>"; };
 		89CC90842131243B009951F5 /* base_game_mac */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = base_game_mac; sourceTree = BUILT_PRODUCTS_DIR; };
 		89CC90872131243B009951F5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		89CC908E213124E4009951F5 /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
@@ -67,9 +72,12 @@
 			isa = PBXGroup;
 			children = (
 				89CC90872131243B009951F5 /* main.cpp */,
-				89CC908E213124E4009951F5 /* Game.cpp */,
 				89CC908F213124E4009951F5 /* Game.hpp */,
+				89CC908E213124E4009951F5 /* Game.cpp */,
 				89CC909421312D8A009951F5 /* Actor.hpp */,
+				891C3EB6213357910005AD69 /* Actor.cpp */,
+				891C3EB321334C160005AD69 /* Component.hpp */,
+				891C3EB42133521A0005AD69 /* Component.cpp */,
 				89CC90A82131474B009951F5 /* mathlibrary5.hpp */,
 			);
 			path = base_game_mac;
@@ -140,7 +148,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				89CC90882131243B009951F5 /* main.cpp in Sources */,
+				891C3EB52133521A0005AD69 /* Component.cpp in Sources */,
 				89CC9090213124E4009951F5 /* Game.cpp in Sources */,
+				891C3EB7213357910005AD69 /* Actor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
