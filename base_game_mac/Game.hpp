@@ -11,9 +11,10 @@
 
 #include <SDL2/SDL.h>
 #include <memory>
+#include <unordered_map>
 #include "Actor.hpp"
 
-
+using TEXTURE_SP = std::shared_ptr<SDL_Texture>;
 
 class Game {
 public:
@@ -32,6 +33,7 @@ private:
     void generate_output();
     void load_data();
     void unload_data();
+    TEXTURE_SP get_texture(std::string texture_name);
     
 private:
     std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> window;
@@ -46,6 +48,9 @@ private:
     
     // pending actors to be inserted
     std::vector<std::shared_ptr<Actor>> pending_actors;
+    
+    // a map of strings to shared_ptr SDL_Textures
+    std::unordered_map<std::string, TEXTURE_SP> textures;
     
 };
 

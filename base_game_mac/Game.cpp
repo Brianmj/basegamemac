@@ -7,6 +7,9 @@
 //
 
 #include "Game.hpp"
+#include <SDL2_image/SDL_image.h>
+
+
 
 Game::Game() :
 window(nullptr, SDL_DestroyWindow),
@@ -22,6 +25,15 @@ bool Game::initialize() {
     
     if (0 != result) {
         SDL_Log("Unable to initialize sdl: %s", SDL_GetError());
+        
+        return false;
+    }
+    
+    int img_init = IMG_Init(IMG_INIT_PNG);
+    
+    if(!(img_init & IMG_INIT_PNG)){
+        // was unable to initialize the SDL Image library
+        SDL_Log("Unable to initialize the image library: %s", SDL_GetError());
         
         return false;
     }
@@ -54,6 +66,8 @@ bool Game::initialize() {
         return false;
     }
     
+    
+    
     ticks_count = SDL_GetTicks();
     
     return true;
@@ -69,6 +83,7 @@ void Game::run_loop() {
 
 void Game::shutdown() {
     unload_data();              // free the memory, unload all data here
+    IMG_Quit();
     window.reset(nullptr);    // close the window
     SDL_Quit();                // shutdown sdl
 }
@@ -160,5 +175,33 @@ void Game::unload_data() {
     if(!actors.empty())
         actors.clear();
     
+}
+
+TEXTURE_SP Game::get_texture(std::string texture_name) {
+    auto iter = textures.find(texture_name);
+    
+    if(std::end(textures) != iter) {
+        // we have the texture
+        auto found_texture = iter->second;
+        
+        return found_texture;
+    }
+    
+    // no texture found named "texture_name", try and load it
+    auto surface = std::shared_ptr<SDL_Surface>(IMG_Load(texture_name.c_str()),
+                                                 SDL_FreeSurface);
+    
+    if(nullptr == surface) {
+        SDL_Log("Could not load image file by name of: %s", texture_name.c_str());
+        return nullptr;
+    }
+    
+    // success
+    auto tex = std::shared_ptr<SDL_Texture>(SDL_CreateTextureFromSurface(renderer.get(), surface.get()), SDL_DestroyTexture);
+    
+    // add the new texture to the map
+    textures.emplace(texture_name, tex);
+    
+    return tex;
 }
 
