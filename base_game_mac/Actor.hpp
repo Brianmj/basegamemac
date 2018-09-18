@@ -41,11 +41,20 @@ public:
     // any actor specific update code (overridable)
     virtual void update_actor(float delta_time);
     
+    knu::math::Vector2f get_position() const { return position; }
+    void set_position(knu::math::Vector2f new_position) { position = new_position;}
+    float get_scale() const { return scale; }
+    void set_scale(float new_scale) { scale = new_scale;}
+    float get_rotation() const { return rotation; }
+    void set_rotation(float new_rotation) { rotation = new_rotation; }
+    
     void add_component(std::shared_ptr<Component> component);
     void remove_component(std::shared_ptr<Component> component);
     
     State get_state() const { return state; }
     void set_state(State new_state) { state = new_state; }
+    
+    Game* get_game() { return game; }
     
     /*
     template<typename T>

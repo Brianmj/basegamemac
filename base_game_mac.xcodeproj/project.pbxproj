@@ -13,6 +13,7 @@
 		89CC90882131243B009951F5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89CC90872131243B009951F5 /* main.cpp */; };
 		89CC9090213124E4009951F5 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89CC908E213124E4009951F5 /* Game.cpp */; };
 		89CC909321312534009951F5 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89CC909221312534009951F5 /* SDL2.framework */; };
+		89D162032150BFAA00BCAFFD /* SpriteComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89D162022150BFAA00BCAFFD /* SpriteComponent.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +40,8 @@
 		89CC909221312534009951F5 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
 		89CC909421312D8A009951F5 /* Actor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Actor.hpp; sourceTree = "<group>"; };
 		89CC90A82131474B009951F5 /* mathlibrary5.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mathlibrary5.hpp; sourceTree = "<group>"; };
+		89D162012150BF8B00BCAFFD /* SpriteComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpriteComponent.h; sourceTree = "<group>"; };
+		89D162022150BFAA00BCAFFD /* SpriteComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteComponent.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +85,8 @@
 				891C3EB321334C160005AD69 /* Component.hpp */,
 				891C3EB42133521A0005AD69 /* Component.cpp */,
 				89CC90A82131474B009951F5 /* mathlibrary5.hpp */,
+				89D162012150BF8B00BCAFFD /* SpriteComponent.h */,
+				89D162022150BFAA00BCAFFD /* SpriteComponent.cpp */,
 			);
 			path = base_game_mac;
 			sourceTree = "<group>";
@@ -153,6 +158,7 @@
 			files = (
 				89CC90882131243B009951F5 /* main.cpp in Sources */,
 				891C3EB52133521A0005AD69 /* Component.cpp in Sources */,
+				89D162032150BFAA00BCAFFD /* SpriteComponent.cpp in Sources */,
 				89CC9090213124E4009951F5 /* Game.cpp in Sources */,
 				891C3EB7213357910005AD69 /* Actor.cpp in Sources */,
 			);

@@ -19,6 +19,7 @@ Component::~Component() {
     
 }
 
+// virtual function meant to be overriden by derived classes
 void Component::update(float delta_time) {
     
 }

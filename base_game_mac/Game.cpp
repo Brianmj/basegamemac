@@ -8,6 +8,7 @@
 
 #include "Game.hpp"
 #include <SDL2_image/SDL_image.h>
+#include "SpriteComponent.h"
 
 
 
@@ -113,6 +114,27 @@ void Game::remove_actor(std::shared_ptr<Actor> actor){
         actors.pop_back();
     }
 }
+
+void Game::add_sprite(SpriteComponent *sprite){
+    int my_draw_order = sprite->get_draw_order();
+    
+    auto iter = sprites_vec.begin();
+    
+    for(; iter != sprites_vec.end(); ++iter) {
+        if(my_draw_order < (*iter)->get_draw_order())
+            break;
+    }
+    
+    sprites_vec.insert(iter, sprite);
+    
+}
+
+void Game::remove_sprite(SpriteComponent *sprite){
+    auto iter = std::find(sprites_vec.begin(), sprites_vec.end(), sprite);
+    
+    sprites_vec.erase(iter);
+}
+
 
 void Game::process_input() {
     SDL_Event event;

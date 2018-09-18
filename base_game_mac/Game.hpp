@@ -15,6 +15,7 @@
 #include "Actor.hpp"
 
 using TEXTURE_SP = std::shared_ptr<SDL_Texture>;
+class SpriteComponent;
 
 class Game {
 public:
@@ -26,6 +27,9 @@ public:
     
     void add_actor(std::shared_ptr<Actor> actor);
     void remove_actor(std::shared_ptr<Actor> actor);
+    
+    void add_sprite(SpriteComponent *sprite);
+    void remove_sprite(SpriteComponent *sprite);
     
 private:
     void process_input();
@@ -51,6 +55,9 @@ private:
     
     // a map of strings to shared_ptr SDL_Textures
     std::unordered_map<std::string, TEXTURE_SP> textures;
+    
+    // a vector of all the sprites in the game
+    std::vector<SpriteComponent*> sprites_vec;
     
 };
 

@@ -23,6 +23,8 @@ public:
     
     int get_update_order() const { return update_order; }
     
+    std::shared_ptr<Actor> get_owner() { return owner.lock(); }
+    
 private:
     std::weak_ptr<Actor> owner;
     int update_order;
